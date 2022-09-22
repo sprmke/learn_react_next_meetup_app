@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import MeetupList from '../components/meetups/MeetupList';
 import { MeetupInfo } from '../types/meetup';
 
@@ -21,17 +21,23 @@ const DUMMY_MEETUPS: MeetupInfo[] = [
   },
 ];
 
-const HomePage = () => {
-  const [loadedMeetups, setLoadedMeetups] = useState<MeetupInfo[]>(
-    [] as MeetupInfo[]
-  );
+interface MeetupsProps {
+  meetups: MeetupInfo[];
+}
 
-  useEffect(() => {
-    // send a http request and fetch data
-    setLoadedMeetups(DUMMY_MEETUPS);
-  }, []);
+const HomePage = ({
+  meetups,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  return <MeetupList meetups={meetups} />;
+};
 
-  return <MeetupList meetups={loadedMeetups} />;
+export const getStaticProps: GetStaticProps<MeetupsProps> = () => {
+  // fetch data from an API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
 };
 
 export default HomePage;
