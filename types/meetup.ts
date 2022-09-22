@@ -1,5 +1,5 @@
 export interface MeetupInfo {
-  id: string;
+  id?: string;
   title: string;
   address: string;
   image: string;
