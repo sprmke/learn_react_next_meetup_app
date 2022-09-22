@@ -1,7 +1,7 @@
 import NewMeetupForm from '../../components/meetups/NewMeetupForm';
 import { MeetupInfo } from '../../types/meetup';
 
-const NewMeetup = () => {
+const NewMeetupPage = () => {
   const addMeetupHandler = (meetupInfo: MeetupInfo) => {
     console.log('meetupInfo::', meetupInfo);
   };
@@ -9,4 +9,4 @@ const NewMeetup = () => {
   return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
 };
 
-export default NewMeetup;
+export default NewMeetupPage;
