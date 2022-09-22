@@ -11,6 +11,7 @@ function MeetupList({ meetups }: { meetups: MeetupInfo[] }) {
           id={meetup.id}
           image={meetup.image}
           title={meetup.title}
+          description={meetup.description}
           address={meetup.address}
         />
       ))}
