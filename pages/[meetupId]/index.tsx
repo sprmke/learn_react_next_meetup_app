@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 import { MeetupInfo } from '../../types/meetup';
 
@@ -24,6 +24,13 @@ const MeetupDetailsPage = ({
       image={image}
     />
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { meetupId: 'm1' } }, { params: { meetupId: 'm2' } }],
+    fallback: false,
+  };
 };
 
 export const getStaticProps: GetStaticProps<StaticPropsType> = ({
