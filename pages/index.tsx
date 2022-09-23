@@ -37,6 +37,9 @@ export const getStaticProps: GetStaticProps<MeetupsProps> = () => {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    // this page will be pre-generate every 1hour (3600s)
+    // if there are request coming to this page
+    revalidate: 3600,
   };
 };
 
