@@ -1,4 +1,15 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  GetStaticProps,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+  PreviewData,
+} from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import MeetupList from '../components/meetups/MeetupList';
 import { MeetupInfo } from '../types/meetup';
 
@@ -21,9 +32,29 @@ const DUMMY_MEETUPS: MeetupInfo[] = [
   },
 ];
 
-interface MeetupsProps {
+interface PropsReturnedType {
   meetups: MeetupInfo[];
 }
+
+// const HomePage = ({
+//   meetups,
+// }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+//   return <MeetupList meetups={meetups} />;
+// };
+
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ): Promise<GetServerSidePropsResult<PropsReturnedType>> => {
+//   const { req, res } = context;
+
+//   // fetch data from an API
+
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// };
 
 const HomePage = ({
   meetups,
@@ -31,7 +62,9 @@ const HomePage = ({
   return <MeetupList meetups={meetups} />;
 };
 
-export const getStaticProps: GetStaticProps<MeetupsProps> = () => {
+export const getStaticProps: GetStaticProps<PropsReturnedType> = async (
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<PropsReturnedType>> => {
   // fetch data from an API
   return {
     props: {
