@@ -62,7 +62,7 @@ const HomePage = ({
   return <MeetupList meetups={meetups} />;
 };
 
-export const getStaticProps: GetStaticProps<PropsReturnedType> = async (
+export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<PropsReturnedType>> => {
   // fetch data from an API
