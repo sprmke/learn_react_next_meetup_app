@@ -44,7 +44,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
   return {
     paths: meetupsPaths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
