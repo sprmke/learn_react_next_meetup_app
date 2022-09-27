@@ -9,6 +9,7 @@ import {
   InferGetStaticPropsType,
   PreviewData,
 } from 'next';
+import Head from 'next/head';
 import MeetupList from '../components/meetups/MeetupList';
 import { getMeetups } from '../lib/meetups';
 import { MeetupInfo } from '../types/meetup';
@@ -40,7 +41,18 @@ interface PropsReturnedType {
 const HomePage = ({
   meetups,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return <MeetupList meetups={meetups} />;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name='desription'
+          content='Browse a huge list of highly active React meetups!'
+        />
+      </Head>
+      <MeetupList meetups={meetups} />
+    </>
+  );
 };
 
 export const getStaticProps = async (

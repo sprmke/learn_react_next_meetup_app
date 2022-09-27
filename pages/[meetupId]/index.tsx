@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -16,19 +17,21 @@ type ParamsType = {
   meetupId: string;
 };
 
-const MeetupDetailsPage = ({
-  title,
-  description,
-  address,
-  image,
-}: MeetupInfo) => {
+const MeetupDetailsPage = (props: PropsReturnedType) => {
+  const { title, description, address, image } = props.meetupData;
   return (
-    <MeetupDetail
-      title={title}
-      description={description}
-      address={address}
-      image={image}
-    />
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name='desription' content={description} />
+      </Head>
+      <MeetupDetail
+        title={title}
+        description={description}
+        address={address}
+        image={image}
+      />
+    </>
   );
 };
 
