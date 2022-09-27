@@ -8,7 +8,6 @@ const NewMeetupPage = () => {
 
   const addMeetupHandler = async (meetupInfo: MeetupInfo) => {
     const result = await addNewMeetup(meetupInfo);
-    console.log('result', result);
 
     router.push('/');
   };

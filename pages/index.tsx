@@ -48,7 +48,6 @@ export const getStaticProps = async (
 ): Promise<GetStaticPropsResult<PropsReturnedType>> => {
   // get meetups list
   const meetups: MeetupInfo[] = await getMeetups();
-  console.log('meetups', meetups);
 
   return {
     props: {

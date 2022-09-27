@@ -1,8 +1,14 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+} from 'next';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
+import { getMeetupDetail, getMeetups } from '../../lib/meetups';
 import { MeetupInfo } from '../../types/meetup';
 
-interface StaticPropsType {
+interface PropsReturnedType {
   meetupData: MeetupInfo;
 }
 
@@ -27,27 +33,36 @@ const MeetupDetailsPage = ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const meetups: MeetupInfo[] = await getMeetups({ _id: 1 });
+  const meetupsPaths = meetups.map((meetup) => ({
+    params: {
+      meetupId: meetup.id,
+    },
+  }));
   return {
-    paths: [{ params: { meetupId: 'm1' } }, { params: { meetupId: 'm2' } }],
+    paths: meetupsPaths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps<StaticPropsType> = ({
+export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<ParamsType>) => {
-  const { meetupId } = params;
-  // fetch api here
+}: GetStaticPropsContext<ParamsType>): Promise<
+  GetStaticPropsResult<PropsReturnedType>
+> => {
+  const meetupId = params.meetupId.toString();
+  const meetup = await getMeetupDetail(meetupId);
+  const meetupData = {
+    id: meetup._id.toString(),
+    title: meetup.title,
+    description: meetup.description,
+    address: meetup.address,
+    image: meetup.image,
+  };
+
   return {
     props: {
-      meetupData: {
-        id: meetupId,
-        title: 'Meetup 1',
-        description: 'Meetup1 Description',
-        address: 'Meetup1 Address',
-        image:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Restaurant_N%C3%A4sinneula.jpg/1280px-Restaurant_N%C3%A4sinneula.jpg',
-      },
+      meetupData,
     },
   };
 };
