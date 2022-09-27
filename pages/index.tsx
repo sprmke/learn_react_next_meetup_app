@@ -9,28 +9,9 @@ import {
   InferGetStaticPropsType,
   PreviewData,
 } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 import MeetupList from '../components/meetups/MeetupList';
+import { getMeetups } from '../lib/meetups';
 import { MeetupInfo } from '../types/meetup';
-
-const DUMMY_MEETUPS: MeetupInfo[] = [
-  {
-    id: 'm1',
-    title: 'Meetup 1',
-    description: 'Meetup1 Description',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Restaurant_N%C3%A4sinneula.jpg/1280px-Restaurant_N%C3%A4sinneula.jpg',
-    address: 'Meetup1 Address',
-  },
-  {
-    id: 'm2',
-    title: 'Meetup 2',
-    description: 'Meetup2 Description',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Restaurant_N%C3%A4sinneula.jpg/1280px-Restaurant_N%C3%A4sinneula.jpg',
-    address: 'Meetup2 Address',
-  },
-];
 
 interface PropsReturnedType {
   meetups: MeetupInfo[];
@@ -65,15 +46,18 @@ const HomePage = ({
 export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<PropsReturnedType>> => {
-  // fetch data from an API
+  // get meetups list
+  const meetups: MeetupInfo[] = await getMeetups();
+  console.log('meetups', meetups);
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
+    // - At most once every 1 hr
+    revalidate: 3600, // In seconds
   };
 };
 
