@@ -7,4 +7,4 @@
 ##### Application Scope:
 
 - S23.2: Next Basics - Meetups Application
-- Topics discussed: Routing, Styling, Pre-rendering, Data fetching for static pages, SSG, SSR, getStaticPaths, API Routes, Working with MongoDB, Sending HTTP Requests with our API routes, Getting data from DB, Metadata, Deploying Next.js Apps, Fallback pages, etc
+- Topics discussed: Routing, Styling, Pre-rendering, Data fetching for static pages, SSG, SSR, getStaticPaths, API Routes, Working with MongoDB, Sending HTTP Requests with our API routes, Getting data from DB, Metadata, Vercel Deployment, Fallback pages, etc
